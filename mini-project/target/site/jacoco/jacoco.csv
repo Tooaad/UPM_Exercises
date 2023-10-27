@@ -1,0 +1,10 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+miniproject,es.upm.pproject.miniproject,Manager,0,314,0,42,0,61,0,35,0,14
+miniproject,es.upm.pproject.pojos,Course,7,155,5,13,2,34,6,17,1,13
+miniproject,es.upm.pproject.pojos,Student,7,85,5,9,2,19,6,9,1,7
+miniproject,es.upm.pproject.exceptions,NoSuchStudentException,0,4,0,0,0,2,0,1,0,1
+miniproject,es.upm.pproject.exceptions,IllegalArgumentException,0,4,0,0,0,2,0,1,0,1
+miniproject,es.upm.pproject.exceptions,FullCourseException,0,4,0,0,0,2,0,1,0,1
+miniproject,es.upm.pproject.exceptions,AlreadyEnrolledException,0,4,0,0,0,2,0,1,0,1
+miniproject,es.upm.pproject.exceptions,NoSuchCourseException,0,4,0,0,0,2,0,1,0,1
+miniproject,es.upm.pproject.exceptions,NoSuchEnrollmentException,0,4,0,0,0,2,0,1,0,1

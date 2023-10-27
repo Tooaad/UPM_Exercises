@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Manager.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">miniproject</a> &gt; <a href="index.source.html" class="el_package">es.upm.pproject.miniproject</a> &gt; <span class="el_source">Manager.java</span></div><h1>Manager.java</h1><pre class="source lang-java linenums">package es.upm.pproject.miniproject;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import es.upm.pproject.exceptions.IllegalArgumentException;
+import es.upm.pproject.exceptions.AlreadyEnrolledException;
+import es.upm.pproject.exceptions.FullCourseException;
+import es.upm.pproject.exceptions.NoSuchCourseException;
+import es.upm.pproject.exceptions.NoSuchEnrollmentException;
+import es.upm.pproject.exceptions.NoSuchStudentException;
+import es.upm.pproject.pojos.Course;
+import es.upm.pproject.pojos.Student;
+
+public class Manager implements CourseManager {
+
+	private Map&lt;Integer, Student&gt; students;
+	private Map&lt;Integer, Course&gt; courses;
+
+<span class="fc" id="L23">	public Manager() {</span>
+<span class="fc" id="L24">		students = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L25">		courses = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L26">	}</span>
+
+	public void registerCourse(int courseCode, String name, String coordinator)
+			throws IllegalArgumentException {
+<span class="fc bfc" id="L30" title="All 2 branches covered.">		if(courseCode &lt; 1) {</span>
+<span class="fc" id="L31">			throw new IllegalArgumentException(&quot;The course code is not a positive integer&quot;);</span>
+		}
+<span class="fc bfc" id="L33" title="All 4 branches covered.">		if(name == null || name.isBlank()) {</span>
+<span class="fc" id="L34">			throw new IllegalArgumentException(&quot;The course name is empty&quot;);</span>
+		}
+<span class="fc bfc" id="L36" title="All 4 branches covered.">		if(coordinator == null || coordinator.isBlank()) {</span>
+<span class="fc" id="L37">			throw new IllegalArgumentException(&quot;The course coordinator's name is empty&quot;);</span>
+		}
+<span class="fc" id="L39">		courses.put(courseCode, new Course(courseCode, name, coordinator));</span>
+<span class="fc" id="L40">	}</span>
+
+	public void registerStudent(int studentId, String name, String email)
+			throws IllegalArgumentException{
+<span class="fc bfc" id="L44" title="All 2 branches covered.">		if(studentId &lt; 1) {</span>
+<span class="fc" id="L45">			throw new IllegalArgumentException(&quot;The student code is not a positive integer&quot;);</span>
+		}
+<span class="fc bfc" id="L47" title="All 4 branches covered.">		if(name == null || name.isBlank()) {</span>
+<span class="fc" id="L48">			throw new IllegalArgumentException(&quot;The student's name is empty&quot;);</span>
+		}
+<span class="fc bfc" id="L50" title="All 4 branches covered.">		if(email == null || email.isBlank()) {</span>
+<span class="fc" id="L51">			throw new IllegalArgumentException(&quot;The student's email is empty&quot;);</span>
+		}
+<span class="fc bfc" id="L53" title="All 4 branches covered.">		if(!email.contains(&quot;@&quot;) || email.endsWith(&quot;.&quot;)) {</span>
+<span class="fc" id="L54">			throw new IllegalArgumentException(&quot;The student's email is not valid&quot;);</span>
+		}
+<span class="fc" id="L56">		students.put(studentId, new Student(studentId, name, email));</span>
+<span class="fc" id="L57">	}</span>
+
+	public void enroll(int studentId, int courseCode)
+			throws NoSuchStudentException, NoSuchCourseException,
+			FullCourseException, AlreadyEnrolledException {
+<span class="fc bfc" id="L62" title="All 2 branches covered.">		if(students.get(studentId) == null) {</span>
+<span class="fc" id="L63">			throw new NoSuchStudentException(&quot;The student code is not registered&quot;);</span>
+		}
+<span class="fc" id="L65">		Course course = courses.get(courseCode);</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">		if(course == null) {</span>
+<span class="fc" id="L67">			throw new NoSuchCourseException(&quot;The course code is not registered&quot;);</span>
+		}
+<span class="fc bfc" id="L69" title="All 2 branches covered.">		if(course.size() &gt;= 50) {</span>
+<span class="fc" id="L70">			throw new FullCourseException(&quot;Course is already full&quot;);</span>
+		}
+<span class="fc bfc" id="L72" title="All 2 branches covered.">		if(course.isEnrolled(studentId)) {</span>
+<span class="fc" id="L73">			throw new AlreadyEnrolledException(&quot;The student is already enrolled&quot;);</span>
+		}
+<span class="fc" id="L75">		courses.get(courseCode).enroll(students.get(studentId));</span>
+<span class="fc" id="L76">	}</span>
+
+	public List&lt;String&gt; listEnrollments(int courseCode) {		
+<span class="fc" id="L79">		return courses.get(courseCode).listEnrollments();</span>
+	}
+
+	public void disenroll(int studentId, int courseCode)
+			throws NoSuchStudentException, NoSuchCourseException,
+			NoSuchEnrollmentException {
+<span class="fc bfc" id="L85" title="All 2 branches covered.">		if(students.get(studentId) == null) {</span>
+<span class="fc" id="L86">			throw new NoSuchStudentException(&quot;The student code is not registered&quot;);</span>
+		}
+<span class="fc bfc" id="L88" title="All 2 branches covered.">		if(courses.get(courseCode) == null) {</span>
+<span class="fc" id="L89">			throw new NoSuchCourseException(&quot;The course code is not registered&quot;);</span>
+		}
+<span class="fc bfc" id="L91" title="All 2 branches covered.">		if(!courses.get(courseCode).isEnrolled(studentId)) {</span>
+<span class="fc" id="L92">			throw new NoSuchEnrollmentException(&quot;The student is not registered on that course&quot;);</span>
+		}
+<span class="fc" id="L94">		courses.get(courseCode).disenroll(studentId);</span>
+<span class="fc" id="L95">	}</span>
+
+	public void restartCourse(int courseCode) {
+<span class="fc" id="L98">		courses.get(courseCode).restartCourse();</span>
+<span class="fc" id="L99">	}</span>
+
+	public List&lt;String&gt; listStudents() {
+<span class="fc" id="L102">		List&lt;Student&gt; enrollmentsList = new ArrayList&lt;&gt;(students.values());</span>
+<span class="fc" id="L103">		Collections.sort(enrollmentsList);</span>
+<span class="fc" id="L104">		List&lt;String&gt; sortedEnrollmentsList = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">		for(Student student : enrollmentsList) {</span>
+<span class="fc" id="L106">			sortedEnrollmentsList.add(student.toString());</span>
+		}
+<span class="fc" id="L108">		return sortedEnrollmentsList;</span>
+	}
+
+	public List&lt;String&gt; listCourses() {
+<span class="fc" id="L112">		List&lt;Course&gt; enrollmentsList = new ArrayList&lt;&gt;(courses.values());</span>
+<span class="fc" id="L113">		Collections.sort(enrollmentsList);</span>
+<span class="fc" id="L114">		List&lt;String&gt; sortedEnrollmentsList = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">		for(Course student : enrollmentsList) {</span>
+<span class="fc" id="L116">			sortedEnrollmentsList.add(student.toString());</span>
+		}
+<span class="fc" id="L118">		return sortedEnrollmentsList;</span>
+	}
+
+	public int getNumStudents() {
+<span class="fc" id="L122">		return students.size();</span>
+	}
+
+	public int getNumCourses() {
+<span class="fc" id="L126">		return courses.size();</span>
+	}
+
+	public Student getStudent(int studenId) {
+<span class="fc" id="L130">		return students.get(studenId);</span>
+	}
+
+	public Course getCourse(int courseCode) {
+<span class="fc" id="L134">		return courses.get(courseCode);</span>
+	}
+
+	public boolean isEnrolled(int studentID, Course course) {
+<span class="fc" id="L138">		return course.isEnrolled(studentID);</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

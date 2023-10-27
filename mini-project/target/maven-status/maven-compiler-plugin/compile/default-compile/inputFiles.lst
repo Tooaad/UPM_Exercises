@@ -1,0 +1,10 @@
+/Users/toad/Desktop/Uni/PP/mini-project/src/main/java/es/upm/pproject/pojos/Student.java
+/Users/toad/Desktop/Uni/PP/mini-project/src/main/java/es/upm/pproject/miniproject/CourseManager.java
+/Users/toad/Desktop/Uni/PP/mini-project/src/main/java/es/upm/pproject/pojos/Course.java
+/Users/toad/Desktop/Uni/PP/mini-project/src/main/java/es/upm/pproject/exceptions/NoSuchEnrollmentException.java
+/Users/toad/Desktop/Uni/PP/mini-project/src/main/java/es/upm/pproject/exceptions/NoSuchStudentException.java
+/Users/toad/Desktop/Uni/PP/mini-project/src/main/java/es/upm/pproject/miniproject/Manager.java
+/Users/toad/Desktop/Uni/PP/mini-project/src/main/java/es/upm/pproject/exceptions/IllegalArgumentException.java
+/Users/toad/Desktop/Uni/PP/mini-project/src/main/java/es/upm/pproject/exceptions/NoSuchCourseException.java
+/Users/toad/Desktop/Uni/PP/mini-project/src/main/java/es/upm/pproject/exceptions/AlreadyEnrolledException.java
+/Users/toad/Desktop/Uni/PP/mini-project/src/main/java/es/upm/pproject/exceptions/FullCourseException.java

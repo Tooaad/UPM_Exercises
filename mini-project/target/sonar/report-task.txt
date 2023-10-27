@@ -1,0 +1,6 @@
+projectKey=es.upm.pproject.miniproject:miniproject:miniproject-180302:180302
+serverUrl=https://costa.ls.fi.upm.es/sonar
+serverVersion=9.1.0.47736
+dashboardUrl=https://costa.ls.fi.upm.es/sonar/dashboard?id=es.upm.pproject.miniproject%3Aminiproject%3Aminiproject-180302%3A180302
+ceTaskId=AX_51MdTJlKN1KbCRiNw
+ceTaskUrl=https://costa.ls.fi.upm.es/sonar/api/ce/task?id=AX_51MdTJlKN1KbCRiNw
